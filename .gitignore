@@ -1,0 +1,68 @@
+############################
+# Node / Angular
+############################
+node_modules/
+dist/
+out-tsc/
+.angular/cache
+coverage/
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Cache & Temp
+.cache/
+.parcel-cache
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_*
+.nyc_output
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+############################
+# Spring Boot / Java
+############################
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/
+
+# Gradle
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+*.iml
+*.ipr
+*.iws
+*.class
+
+# Logs & Temp
+*.log
+hs_err_pid*
+replay_pid*
+*.hprof
+*.orig
+
+# OS files
+.DS_Store
+Thumbs.db
