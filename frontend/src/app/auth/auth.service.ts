@@ -17,6 +17,5 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/auth/register`, { name, email, password });
   }
   me() { return this.http.get(`${this.apiUrl}/auth/me`); }
-  saveToken(t: string) { localStorage.setItem('token', t); }
   logout() { localStorage.removeItem('token'); }
 }
