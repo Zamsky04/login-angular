@@ -1,21 +1,49 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
-interface AuthResponse { token: string; name: string; email: string; role: string; }
-
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  // Ganti URL ini jika backend Anda berbeda
+  private authApiUrl = 'http://localhost:8080/api/auth';
+  private userApiUrl = 'http://localhost:8080/api/users'; // URL untuk user endpoint
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  login(email: string, password: string) {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/login`, { email, password });
+  register(name: string, email: string, password: string): Observable<any> {
+    return this.http.post(`${this.authApiUrl}/register`, { name, email, password });
   }
-  register(name: string, email: string, password: string) {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/auth/register`, { name, email, password });
+
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.authApiUrl}/login`, { email, password });
   }
-  me() { return this.http.get(`${this.apiUrl}/auth/me`); }
-  logout() { localStorage.removeItem('token'); }
+
+  /**
+   * PERBAIKAN: Method baru untuk mengambil data user yang sedang login.
+   * Method ini akan memanggil endpoint /api/users/me di backend.
+   */
+  me(): Observable<any> {
+    return this.http.get(`${this.userApiUrl}/me`);
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('authToken', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
+  // Di sini method logout sudah meng-handle navigasi
+  logout(): void {
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
+  }
+
+  isLoggedIn(): boolean {
+    return this.getToken() !== null;
+  }
 }

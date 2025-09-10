@@ -1,3 +1,5 @@
+// frontend/src/app/dashboard/dashboard.component.ts
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth/auth.service';
@@ -34,6 +36,11 @@ import { AuthService } from '../auth/auth.service';
 export class DashboardComponent {
   me: any;
   constructor(private auth: AuthService) {}
-  loadMe(){ this.auth.me().subscribe(r => this.me = r); }
-  logout(){ this.auth.logout(); location.href = '/login'; }
+
+  loadMe(){
+    this.auth.me().subscribe(r => this.me = r);
+  }
+  logout(){
+    this.auth.logout();
+  }
 }
